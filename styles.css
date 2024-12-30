@@ -1,0 +1,841 @@
+/************************************************************
+ *  1) ROOT VARIABLES
+ ************************************************************/
+ :root {
+    /* Common colors used multiple times throughout the CSS */
+    --clr-primary: #4F7097;
+    --clr-border: #ccc;
+    --clr-text-main: #1E190D;
+    --clr-bg-light1: #fdfcf8;
+    --clr-bg-light2: #f8f3e5;
+    --clr-bg-light3: #f9f4e5;
+    --clr-bg-light4: #fbf0cc;
+    --clr-accent1: #76A861;
+    --clr-accent2: #FD9607;
+
+    /* Shadows / Filters */
+    --box-shadow-1: rgba(50, 50, 93, 0.25) 5px 10px 40px -25px, 
+                    rgba(0, 0, 0, 0.3) 5px 8px 30px -20px;
+
+    /* Example gradient (used in body background, etc.) */
+    --bg-gradient: linear-gradient(to bottom, #fefdec 0%, #f6efdb 35%, #f6efdb 60%, #E8DBB2 100%);
+    --bg-gradient-light: linear-gradient(to bottom, #fdfcf8 0%, #fefdec 35%, #f6efdb 60%, #ede4c6 100%);
+}
+
+/************************************************************
+ *  2) BASE STYLES & TYPOGRAPHY
+ ************************************************************/
+/* Basic reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Ensure the HTML and body take up full height */
+html,
+body {
+    height: 100%;
+    overflow: auto; /* Re-enable scrolling on the page */
+}
+
+/* Body defaults */
+body {
+    background: var(--bg-gradient-light);
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    font-family: 'Lato', sans-serif;
+    color: var(--clr-text-main);
+    font-weight: 400;
+    overflow-x: hidden; /* Hide horizontal scroll */
+    /*overflow-y: hidden; */
+}
+
+body.no-scroll {
+    background: var(--bg-gradient);
+    overflow-y: hidden; /* Disable vertical scrolling */
+}
+
+/* Headings share a common family & weight */
+h1,
+h2,
+h3,
+.art-deco {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+}
+
+/* Specific heading adjustments */
+h1 {
+    text-align: center;
+    font-size: 2rem; /* Example for a main heading */
+    margin-top: 15px;
+    margin-bottom: 18px;
+}
+
+h2 {
+    font-size: 1.6rem;
+    margin-top: 18px;
+    margin-bottom: 9px;
+}
+
+h3 {
+    font-size: 1.4rem;
+    margin-top: 15px;
+    margin-bottom: 7.5px;
+}
+
+/* Recipe Alpha Header styling */
+.recipe-alpha-header {
+    width: 100%;
+    text-align: center;
+    font-size: 2rem;
+    padding: 20px 0;
+    margin: 10px 0;
+    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+}
+
+/* Italic comment style */
+.recipe-comment {
+    font-style: italic;
+    margin-top: 8px;
+    font-weight: 400;
+    font-size: 0.9rem;
+    font-family: 'Playfair Display', serif;
+    color: #4F7097;
+}
+
+/************************************************************
+ *  3) LAYOUT
+ ************************************************************/
+/* Container with fade effect for “filter-active” */
+.container {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    transition: opacity 0.3s ease-out; /* Smooth transition */
+}
+
+.container.filter-active {
+    opacity: 0.5;
+}
+
+/* Filter Section (left side) */
+.filter-section {
+    padding: 20px;
+    background: linear-gradient(to bottom, #fdfcf8 0%, #f8f3e5 35%, #f9f4e5 60%, #fbf0cc 100%);
+    border-right: 0px solid var(--clr-border);
+    height: 100%;
+    box-shadow: var(--box-shadow-1);
+    overflow-y: auto;
+}
+
+/* Recipe Section (right side) */
+.recipe-section {
+    width: 100%;
+    max-width: 1200px; /* Or your preferred max-width */
+    padding: 20px;
+}
+
+/************************************************************
+ *  4) COMPONENTS
+ ************************************************************/
+/* Search and Filter elements */
+label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+#search-box {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--clr-border);
+    border-radius: 4px;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 5px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    background-color: #fefdf7;
+}
+
+#search-box:focus {
+    outline: 2px solid var(--clr-primary);
+    outline-offset: 0px;
+}
+
+#search-button {
+    margin-top: 5px;
+    padding: 8px 16px;
+    border: 1px solid var(--clr-primary);
+    background-color: var(--clr-primary);
+    color: white;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    display: block;
+    width: auto;
+    margin: 10px auto;
+    text-align: center;
+}
+
+/* Hover effect for the button */
+#search-button:hover {
+    background-color: var(--clr-primary);
+}
+
+/* Generic button styling */
+button {
+    background-color: #466A76;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #466A76;
+}
+
+/* Recipes container */
+.recipes-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    overflow-y: auto;
+    min-height: 500px;
+    max-height: 800px;
+}
+
+/* Individual Recipe Card */
+.recipe-card {
+    width: 100%;
+    max-width: 800px;
+    opacity: 0; 
+    transition: opacity 0.75s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    margin-left: 25px;
+    margin-right: 25px;
+    margin-bottom: 20px;
+    border: 0px solid var(--clr-border);
+    box-shadow: var(--box-shadow-1);
+    background-color: #f9f9ee;
+}
+
+.recipe-card.visible {
+    opacity: 1; /* Fully visible when “active” */
+}
+
+/* Table styling within a card */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+    background-color: #faf5e6;
+}
+
+td,
+th {
+    border: 0px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+/* Color strip next to table */
+.table-and-strip-container {
+    display: flex;
+    align-items: stretch; /* Matches the strip height to the table */
+}
+
+.color-strip-container {
+    flex: 0 0 5%; 
+    display: flex;
+    min-height: 100%;
+    justify-content: left;
+    align-items: stretch;
+}
+
+.color-strip {
+    position: relative;
+    min-width: 10px;
+    background-color: var(--strip-color, #ccc); /* fallback if var not set */
+    overflow: hidden;
+}
+
+.p-total-area {
+    display: flex;
+}
+
+.p-color-strip-container {
+    flex: 0 0 5%; 
+    display: flex;
+    min-height: 100%;
+    justify-content: left;
+    align-items: stretch;
+}
+
+.p-color-strip-container-r {
+    flex: 5% 0 0; 
+    display: flex;
+    min-height: 100%;
+    justify-content: right;
+    align-items: stretch;
+}
+
+.p-color-strip {
+    position: relative;
+    min-width: 10px;
+    background-color: var(--strip-color, #ccc); /* fallback if var not set */
+    overflow: hidden;
+}
+
+/* Squiggle filter support */
+.squiggle {
+    filter: url(#squiggle);
+}
+
+@supports (filter: url(#squiggle)) {
+    .color-strip {
+        filter: url(#squiggle);
+    }
+    .p-color-strip {
+        filter: url(#squiggle);
+    }
+    .band {
+        filter: url(#squiggle);
+    }
+}
+
+/* Card content layout */
+.card-content {
+    flex: 0 0 75%;
+}
+
+.glass-info {
+    flex: 0 0 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    padding-left: 10px;
+}
+
+/* Card header (title + page number) */
+.card-header,
+.card-title-section {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.card-title {
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.page-number {
+    margin-left: auto;
+    padding: 3px 8px;
+    font-size: 0.9rem;
+    align-self: flex-start;
+}
+
+/* Title + glass info side by side */
+.card-content-area {
+    display: flex;
+}
+
+.recipe-card h3 {
+    margin: 0;
+}
+
+.recipe-card span {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+/* Glass placeholders */
+.glass-image-placeholder {
+    width: 100%;
+    height: 150px;
+    border: 1px dashed var(--clr-border);
+    margin-bottom: 10px;
+    background-color: #f7f7f7;
+}
+
+.glass-type {
+    text-align: center;
+}
+
+.recipe-card p {
+    line-height: 1.5;
+}
+
+/************************************************************
+ * SEGMENTED CONTROLS
+ ************************************************************/
+.segmented-control {
+    margin: 10px 0;
+    text-align: center;
+}
+
+/* Hide actual radio input */
+.segmented-control input[type="radio"] {
+    display: none;
+}
+
+/* Labels as clickable segments */
+.segmented-control label {
+    display: inline-block;
+    padding: 10px 20px;
+    cursor: pointer;
+    border: 1px solid var(--clr-border);
+    background-color: #f6f6f6; 
+    transition: background-color 0.3s ease;
+}
+
+/* No border overlap in between labels */
+.segmented-control label + label {
+    border-left: none;
+}
+
+/* Checked (active) state */
+.segmented-control input[type="radio"]:checked + label {
+    background-color: var(--clr-primary);
+    color: white;
+    border-color: var(--clr-primary);
+}
+
+.segmented-control:hover input[type="radio"]:checked + label {
+    background-color: #6689b1; 
+    border-color: #6689b1; 
+}
+
+/* Rounded corners on ends only */
+.segmented-control > label {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.segmented-control > label:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+/* 2 equal segments (can adjust as needed) */
+.segmented-control label {
+    width: calc(50% - 2px);
+    box-sizing: border-box;
+}
+
+/************************************************************
+ * FILTER SLIDE-OUT MENU
+ ************************************************************/
+/* Checkbox to toggle the filter menu */
+#filter-check {
+    display: none;
+}
+
+/* Slide-out filter menu */
+.filter-menu {
+    position: fixed;
+    top: 0;
+    transform: translateX(-300px); /* pushes it off-screen via transform */
+    transition: transform 0.3s ease-out;
+    width: 300px;
+    height: 100vh;
+    background-color: var(--clr-bg-light1);
+    overflow-y: auto;
+    z-index: 999;
+}
+
+.filter-menu header  {
+    font-size: 28px;
+    color: #353535;
+    line-height: 70px;
+    text-align: center;
+    background-color: var(--clr-bg-light1);
+    user-select: none;
+    font-family: 'Playfair Display', serif;
+}
+
+/* Slide in when checkbox is checked */
+#filter-check:checked ~ .filter-menu {
+    /*left: 0;*/
+    transform: translateX(0);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/************************************************************
+ * MENU BUTTONS (FILTER & MENU)
+ ************************************************************/
+/* Hide “cancel” icons by default */
+label #filter-cancel,
+label #menu-cancel {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* Both container and menu popups share some button styles */
+label #filter-btn,
+label #filter-cancel,
+label #menu-btn,
+label #menu-cancel {
+    position: fixed;
+    top: 20px;
+    cursor: pointer;
+    color: white;
+    border-radius: 6px;
+    width: 60px;
+    height: 60px;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    font-size: 29px;
+    background-color: var(--clr-primary);
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    z-index: 1001;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    padding: 8px;
+}
+
+/* Filter button on the left; Menu button on the right */
+label #filter-btn,
+label #filter-cancel {
+    left: 20px;
+    transform-origin: top left; /* for transform animations */
+}
+
+label #menu-btn,
+label #menu-cancel {
+    right: 20px;
+    transform-origin: top right; 
+}
+
+/* Uniform icon sizes */
+.menu-icon {
+    width: 50px;
+    height: 50px;
+    vertical-align: middle;
+    margin: 0;
+}
+
+.filter-icon {
+    width: 40px;
+    height: 40px;
+    vertical-align: middle;
+    margin: 0;
+}
+
+/************************************************************
+ * MENU POPUP (RIGHT SLIDE-OUT)
+ ************************************************************/
+.menu-popup {
+    position: fixed;
+    top: 0;
+    right: 0;
+    transform: translateX(300px);
+    width: 300px;
+    height: 100vh;
+    background: linear-gradient(
+        to bottom,
+        var(--clr-bg-light1) 0%,
+        var(--clr-bg-light2) 35%,
+        var(--clr-bg-light3) 60%,
+        var(--clr-bg-light4) 100%
+    );
+    overflow-y: auto;
+    transition: transform 0.3s ease-out;
+    z-index: 999;
+    box-shadow: var(--box-shadow-1);
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    color: var(--clr-text-main);
+}
+
+.menu-popup header {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    text-align: center;
+}
+
+.menu-popup ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.menu-popup ul li {
+    margin: 20px 0;
+}
+
+.menu-popup ul li a {
+    text-decoration: none;
+    color: var(--clr-text-main);
+    font-family: 'Lato', sans-serif;
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    position: relative;
+    z-index: 1;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    overflow: hidden;
+}
+
+/* Default background for items is transparent */
+.menu-popup ul li a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent; 
+    filter: url(#squiggle);
+    z-index: -1;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover color changes per list item */
+.menu-popup ul li a:hover {
+    color: white;
+}
+
+/* Individual item hover backgrounds */
+.menu-popup ul li:nth-child(1) a:hover::before {
+    background-color: var(--clr-primary);
+}
+.menu-popup ul li:nth-child(2) a:hover::before {
+    background-color: var(--clr-accent1);
+}
+.menu-popup ul li:nth-child(3) a:hover::before {
+    background-color: var(--clr-accent2);
+}
+
+/* Show the menu when checkbox checked */
+#menu-check {
+    display: none;
+}
+#menu-check:checked ~ .menu-popup {
+    right: 0;
+    transform: translateX(0);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Toggle button visibility */
+#menu-check:checked ~ label #menu-cancel {
+    opacity: 1;
+    visibility: visible;
+}
+#menu-check:checked ~ label #menu-btn {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/************************************************************
+ * FILTER BUTTON STATES
+ ************************************************************/
+/* When filter menu is active */
+#filter-check:checked ~ label #filter-cancel {
+    opacity: 1;
+    visibility: visible;
+}
+
+#filter-check:checked ~ label #filter-btn {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* Keep them from vanishing entirely */
+#filter-check:checked ~ label #filter-btn,
+#filter-check:checked ~ label #filter-cancel {
+    transform: scale(0.5);
+    opacity: 1;
+}
+
+#menu-check:checked ~ label #menu-btn,
+#menu-check:checked ~ label #menu-cancel {
+    transform: scale(0.5);
+    opacity: 1;
+}
+
+/************************************************************
+ *  5) UTILITIES
+ ************************************************************/
+.spacer {
+    flex-shrink: 0;
+    height: 240px;
+    width: 100%;
+}
+
+/************************************************************
+ *  6) MEDIA QUERIES
+ ************************************************************/
+/* Example media query already in your code */
+@media (max-width: 768px) {
+    .about-header h1 {
+        font-size: 2rem;
+    }
+
+    .about-content {
+        padding: 10px;
+    }
+
+    .about-content h2 {
+        font-size: 1.5rem;
+    }
+
+    .about-content p {
+        font-size: 1rem;
+    }
+}
+
+/************************************************************
+ *  ABOUT PAGE-SPECIFIC STYLES
+ ************************************************************/
+/* Header for About Us page */
+.about-header {
+    text-align: center;
+    padding: 20px;
+    /*background-color: var(--clr-bg-light1);
+    box-shadow: var(--box-shadow-1);*/
+}
+
+.about-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0;
+    padding: 10px 0;
+}
+
+/* Main content for About Us page */
+.about-content {
+    padding: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.about-content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+.about-content p {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/************************
+Media queries
+************************/
+@media (max-width: 576px) {
+    /* Make filter/menu buttons small from the get-go */
+    label #filter-btn,
+    label #filter-cancel,
+    label #menu-btn,
+    label #menu-cancel {
+    transform: scale(0.5);
+    }
+
+  }
+
+@media (max-width: 576px) {
+
+    h1 {
+        text-align: center;
+        font-size: 1.25rem; /* Example for a main heading */
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    .card-content-area {
+      flex-direction: column; /* stack instead of side-by-side */
+    }
+  
+    /* Override the original flex settings for the strip container */
+    .color-strip-container {
+      flex: none;        /* remove the 0 0 5% constraint */
+      width: 100%;       /* make it span the full width */
+      height: 10px;      /* or something small but non-zero */
+      display: block;    /* no longer a flex container */
+      margin-bottom: 1rem;
+    }
+  
+    /* Ensure the color strip fills that space */
+    .color-strip {
+      width: 100%;
+      height: 100%;
+    }
+  
+    .glass-info {
+      margin-top: 1rem; 
+      font-size: .9rem
+    }
+
+    .glass-image {
+    width: 38%; 
+    height: auto;
+    }
+    
+      /* Decrease the size for page number */
+      .page-number {
+        font-size: 0.7rem;
+      }
+
+      .card-content {
+        font-size: .9rem;
+      }
+    
+      /* Shrink any headings inside the recipe card */
+      .recipe-card h3 {
+        font-size: 1.2rem;
+      }
+    
+      /* Paragraphs smaller too */
+      .recipe-card p {
+        font-size: .9rem;
+      }
+
+      .recipe-comment {
+        font-size: .8rem;
+      }
+  }
+
+  @media (max-width: 576px) {
+
+    .about-content .p-about {
+        font-size: .9rem;
+    }
+
+    .about-content h2 {
+        font-size: 1.25rem;
+    }
+
+    .about-content h1 {
+        text-align: center;
+        font-size: 1.5rem; /* Example for a main heading */
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .about-content .p-color-strip {
+        position: relative;
+        min-width: 5px;
+        background-color: var(--strip-color, #ccc); 
+        overflow: hidden;
+    }
+
+  }

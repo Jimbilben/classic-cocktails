@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1930s COCKTAILS FROM THE ORIGINAL SAVOY COCKTAIL BOOK</title>
+    <!-- Link to CSS stylesheet -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+
+</head>
+<body class="no-scroll">
+    <input type="checkbox" id="filter-check">
+
+<label for="filter-check">
+    <img src="img/noun-strainer-369951.svg" alt="Filter" id="filter-btn" class="filter-icon"> 
+    <i class="fas fa-times" id="filter-cancel"></i>
+</label>
+
+
+<div id="filter-menu" class="filter-menu">
+    <header><h2 class="filterhead">Filtering</h2></header>
+    <aside class="filter-section">
+        <label for="ingredient-include">Cocktail includes:</label>
+        <select id="ingredient-include" multiple>
+            <!-- Options will be populated dynamically -->
+        </select>
+
+        <!-- Segmented control for inclusion -->
+        <div class="segmented-control inclusion-control">
+            <input type="radio" id="and-inclusion" name="inclusion-type" value="AND" checked>
+            <label for="and-inclusion">AND</label>
+            <input type="radio" id="or-inclusion" name="inclusion-type" value="OR">
+            <label for="or-inclusion">OR</label>
+        </div>
+
+        <label for="ingredient-exclude">Cocktail does not include:</label>
+        <select id="ingredient-exclude" multiple>
+            <!-- Options will be populated dynamically -->
+        </select>
+
+        <!-- Segmented control for exclusion -->
+        <div class="segmented-control exclusion-control">
+            <input type="radio" id="and-exclusion" name="exclusion-type" value="AND">
+            <label for="and-exclusion">AND</label>
+            <input type="radio" id="or-exclusion" name="exclusion-type" value="OR" checked>
+            <label for="or-exclusion">OR</label>
+        </div>
+
+        <label for="ingredient-only">Cocktail only includes:</label>
+        <select id="ingredient-only" multiple>
+            <!-- Options will be populated dynamically -->
+        </select>
+
+        <label for="glass-type">Glass type:</label>
+        <select id="glass-type" multiple="multiple">
+            <option value="Cocktail glass">Cocktail glass</option>
+            <option value="Wine glasses">Wine glasses</option>
+            <option value="Tumblers">Tumblers</option>
+            <option value="Highball/tall glasses">Highball/tall glasses</option>
+            <option value="No glass specified">No glass specified</option>
+            <option value="Medium size glass">Medium size glass</option>
+            <option value="Liqueur glass">Liqueur glass</option>
+            <option value="Stem glass or China mug">Stem glass or China mug</option>
+            <option value="Large glass">Large glass</option>
+        </select>
+
+        <label for="serving-size">Serving Size:</label>
+        <select id="serving-size">
+            <option value="Any" selected>Any</option>
+            <option value="Standard">Standard</option>
+            <option value="Serves multiple">Serves multiple</option>
+        </select>
+
+        <label for="search-box">Search for a name:</label>
+        <input type="text" id="search-box" placeholder="Enter search terms">
+    </aside>
+</div>
+
+<input type="checkbox" id="menu-check">
+<label for="menu-check">
+    <i class="fas fa-bars" id="menu-btn"></i>
+    <i class="fas fa-times" id="menu-cancel"></i>
+</label>
+
+<div id="menu-popup" class="menu-popup">
+    <header><h2 class="menuhead">Menu</h2></header>
+    <aside class="menu-section">
+        <ul>
+            <li><a href="index.html">Recipes</a></li>
+            <li><a href="about.html">About and FAQ</a></li>
+            <!-- <li><a href="#contact">Contact</a></li>-->
+        </ul>
+    </aside>
+</div>
+
+    <div  class="container" id="main-container">
+        <main class="recipe-section">
+            <div class = "header">
+            <h1>1930s SAVOY COCKTAILS<h1>
+        </div>
+        <div id="recipes-container" class="recipes-container">
+                <!-- Recipe cards will be inserted here by JavaScript -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Include jQuery first -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Then include choices.js - ensure the version matches CSS version -->
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+
+    <!-- Fuse fuzzy match script -->
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.min.js"></script>
+
+    <!-- Your custom scripts last -->
+    <script src="scripts.js"></script>
+
+    <!-- Include any other scripts you may have here -->
+    <svg
+    xmlns="http://www.w3.org/2000/svg"
+    version="1.1"
+    height="0"
+    width="0"
+>
+    <defs>
+        <filter id="squiggle">
+            <feTurbulence
+                type="fractalNoise"
+                id="turbulence"
+                baseFrequency=".05"
+                numOctaves="4"
+            />
+            <feDisplacementMap
+                id="displacement"
+                in="SourceGraphic"
+                scale="4"
+            />
+        </filter>
+    </defs>
+</svg>
+
+
+</body>
+</html>
