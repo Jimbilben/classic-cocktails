@@ -831,7 +831,7 @@ Media queries
         margin-bottom: 10px;
     }
 
-    .about-content .p-color-strip {
+    .p-color-strip {
         position: relative;
         min-width: 8px;
         background-color: var(--strip-color, #ccc); 
