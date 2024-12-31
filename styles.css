@@ -833,7 +833,7 @@ Media queries
 
     .about-content .p-color-strip {
         position: relative;
-        min-width: 5px;
+        min-width: 8px;
         background-color: var(--strip-color, #ccc); 
         overflow: hidden;
     }
