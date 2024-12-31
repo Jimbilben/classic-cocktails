@@ -280,7 +280,7 @@ th {
 }
 
 .p-color-strip-container-r {
-    flex: 5% 0 0; 
+    flex: 0 0 5%; 
     display: flex;
     min-height: 100%;
     justify-content: right;
