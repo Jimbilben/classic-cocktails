@@ -679,23 +679,6 @@ label #menu-cancel {
  *  6) MEDIA QUERIES
  ************************************************************/
 /* Example media query already in your code */
-@media (max-width: 768px) {
-    .about-header h1 {
-        font-size: 2rem;
-    }
-
-    .about-content {
-        padding: 10px;
-    }
-
-    .about-content h2 {
-        font-size: 1.5rem;
-    }
-
-    .about-content p {
-        font-size: 1rem;
-    }
-}
 
 /************************************************************
  *  ABOUT PAGE-SPECIFIC STYLES
@@ -741,7 +724,7 @@ label #menu-cancel {
 /************************
 Media queries
 ************************/
-@media (max-width: 576px) {
+@media (max-width: 650px) {
     /* Make filter/menu buttons small from the get-go */
     label #filter-btn,
     label #filter-cancel,
@@ -752,7 +735,7 @@ Media queries
 
   }
 
-@media (max-width: 576px) {
+@media (max-width: 650px) {
 
     h1 {
         text-align: center;
@@ -814,7 +797,23 @@ Media queries
       }
   }
 
-  @media (max-width: 576px) {
+  @media (max-width: 650px) {
+
+    /*.about-header h1 {
+        font-size: 2rem;
+    }*/
+
+    .about-content {
+        padding: 10px;
+    }
+
+    /*.about-content h2 {
+        font-size: 1.5rem;
+    }*/
+
+    /*.about-content p {
+        font-size: 1rem;
+    }*/
 
     .about-content .p-about {
         font-size: .9rem;
@@ -836,6 +835,22 @@ Media queries
         min-width: 8px;
         background-color: var(--strip-color, #ccc); 
         overflow: hidden;
+    }
+
+    .p-color-strip-container {
+        flex: 0 0 5%; 
+        display: flex;
+        min-height: 100%;
+        justify-content: left;
+        align-items: stretch;
+    }
+    
+    .p-color-strip-container-r {
+        flex: 0 0 5%; 
+        display: flex;
+        min-height: 100%;
+        justify-content: right;
+        align-items: stretch;
     }
 
   }
