@@ -291,7 +291,7 @@ th {
     position: relative;
     min-width: 10px;
     background-color: var(--strip-color, #ccc); /* fallback if var not set */
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 
 /* Squiggle filter support */
@@ -834,7 +834,7 @@ Media queries
         position: relative;
         min-width: 8px;
         background-color: var(--strip-color, #ccc); 
-        overflow: hidden;
+        /*overflow: hidden;*/
     }
 
     .p-color-strip-container {
