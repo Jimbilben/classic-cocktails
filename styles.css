@@ -169,6 +169,12 @@ label {
     background-color: #fefdf7;
 }
 
+.choices__item {
+    word-break: keep-all; /* Prevent breaking words in the middle */
+    overflow-wrap: break-word; /* Break only at appropriate points */
+    white-space: normal; /* Allow wrapping at spaces */
+}
+
 #search-box:focus {
     outline: 2px solid var(--clr-primary);
     outline-offset: 0px;
