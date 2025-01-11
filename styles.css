@@ -140,6 +140,13 @@ h3 {
     padding: 20px;
 }
 
+/* class applied to make the recipes appear more smoothly when the scroll is resetting */
+.scroll-resetting {
+    opacity: 0; 
+    pointer-events: none; 
+    transition: opacity 0.75s ease; 
+}
+
 /************************************************************
  *  4) COMPONENTS
  ************************************************************/

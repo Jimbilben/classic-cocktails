@@ -36,6 +36,24 @@ window.onload = function() {
         });
 };
 
+/*window.onload = function () {
+    fetch('cocktails.json')
+        .then(response => response.json())
+        .then(data => {
+            window.recipes = data;
+            if (!window.recipes || window.recipes.length === 0) {
+                console.error('No recipes available to display');
+                return;
+            }
+
+            // Populate and display recipes without hiding on initial load
+            displayRecipes(window.recipes);
+        })
+        .catch(err => {
+            console.error('Error loading recipes:', err);
+        });
+};*/
+
 let includeSelect;
 let excludeSelect;
 let glassTypeSelect;
@@ -381,11 +399,14 @@ function createRecipeCard(recipe) {
     return card;
 }
 
-function displayRecipes(recipes, fromSearch = false) {
+/*function displayRecipes(recipes, fromSearch = false) {
     const container = document.getElementById('recipes-container');
     if (!container) {
         console.error('Recipes container not found.');
         return;
+    }
+    if (container) {
+        container.scrollTop = 0; // Reset scroll position
     }
 
     const existingCards = Array.from(container.children);
@@ -443,8 +464,74 @@ function displayRecipes(recipes, fromSearch = false) {
                 container.appendChild(spacer);
         
     }, 750);
-}
+}*/
 
+function displayRecipes(recipes, fromSearch = false) {
+    const container = document.getElementById('recipes-container');
+    if (!container) {
+        console.error('Recipes container not found.');
+        return;
+    }
+
+    // Fade out all recipe cards
+    Array.from(container.children).forEach(card => {
+        if (card.classList.contains('recipe-card')) {
+            card.classList.remove('visible'); // Trigger fade-out
+        }
+    });
+
+    // Wait for fade-out to complete (match CSS transition duration)
+    setTimeout(() => {
+
+        // Clear all recipe cards except spacer
+        Array.from(container.children).forEach(child => {
+            if (!child.classList.contains('spacer')) {
+                container.removeChild(child);
+            }
+        });
+
+        let lastInitial = '';
+
+        recipes.forEach(recipe => {
+            const cleanName = recipe.Name.replace(/^The\s+/, '').replace(/^\W+/, '');
+            const initial = cleanName[0].toUpperCase();
+
+            if (initial !== lastInitial && !fromSearch) {
+                const header = document.createElement('div');
+                header.textContent = initial;
+                header.className = 'recipe-alpha-header';
+                container.appendChild(header);
+                lastInitial = initial;
+            }
+
+            const card = createRecipeCard(recipe);
+            container.appendChild(card);
+        });
+
+        // Add a spacer at the end if not present
+        let spacer = container.querySelector('.spacer');
+        if (!spacer) {
+            spacer = document.createElement('div');
+            spacer.className = 'spacer';
+        }
+        spacer.style.height = '240px';
+        container.appendChild(spacer);
+
+        // Reset scroll position
+        container.scrollTop = 0;
+
+        // Ensure fade-in happens only after rendering
+        requestAnimationFrame(() => {
+            setTimeout(() => {
+                Array.from(container.children).forEach(card => {
+                    if (card.classList.contains('recipe-card')) {
+                        card.classList.add('visible'); // Trigger fade-in
+                    }
+                });
+            }, 100); // Small delay to ensure cards are rendered before fading in
+        });
+    }, 750); // Fade-out duration
+}
 
 function filterRecipes() {
     const includeSelect = document.getElementById('ingredient-include');
